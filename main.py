@@ -9,6 +9,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
+    QuickReplyButton, MessageAction, QuickReply
 )
 
 app = Flask(__name__)
@@ -42,10 +43,21 @@ def callback():
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text))
+# def handle_message(event):
+#     line_bot_api.reply_message(
+#         event.reply_token,
+#         TextSendMessage(text=event.message.text))
+
+# QuickReply追加部分
+def response_message(event):
+    language_list = ["Ruby", "Python", "PHP", "Java", "C"]
+
+    items = [QuickReplyButton(action=MessageAction(label=f"{language}", text=f"{language}が好き")) for language in language_list]
+
+    messages = TextSendMessage(text="どの言語が好きですか?", quick_reply=QuickReply(items=items))
+
+    line_bot_api.reply_message(event.reply_token, messages=messages)
+# ここまで
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
