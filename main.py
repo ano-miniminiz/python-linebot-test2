@@ -10,7 +10,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
-    QuickReplyButton, MessageAction, QuickReply, StickerSendMessage
+    QuickReplyButton, MessageAction, QuickReply, StickerSendMessage, FollowEvent
 )
 
 app = Flask(__name__)
@@ -42,6 +42,13 @@ def callback():
         abort(400)
 
     return 'OK'
+
+@handler.add(FollowEvent)
+def handle_follow(event):
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text='おはこんにちは！\n焼肉焼いたら家焼けたbotです！\n「まんざい」って送ってみてね')
+    )
 
 # elifの部分は別クラスにするのもアリ
 @handler.add(MessageEvent, message=TextMessage)
