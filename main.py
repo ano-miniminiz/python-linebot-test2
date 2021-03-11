@@ -11,7 +11,7 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
-    QuickReplyButton, MessageAction, QuickReply, StickerSendMessage, FollowEvent
+    QuickReplyButton, MessageAction, QuickReply, StickerMessage, StickerSendMessage, FollowEvent
 )
 
 app = Flask(__name__)
@@ -83,10 +83,10 @@ def handle_message(event):
     elif len(event.message.text > 10):
         line_bot_api.reply_message(event.reply_token, TextSendMessage("ちょっと単語が長すぎるなぁ…"))
 
-    elif type(event.message) == 'sticker':
-        line_bot_api.reply_message(
-            event.reply_token,
-            StickerSendMessage(package_id=sticker_list[4][0], sticker_id=sticker_list[4][1]))
+    # elif type(event.message) == 'sticker':
+    #     line_bot_api.reply_message(
+    #         event.reply_token,
+    #         StickerSendMessage(package_id=sticker_list[4][0], sticker_id=sticker_list[4][1]))
     else:
         # 韻を踏んだもの(reply_text)を受け取って送る
         # reply_text = fat.main(event.message.text)
@@ -95,10 +95,10 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, messages=messages)
 
 
-@handler.add(MessageEvent, message=StickerSendMessage)
+@handler.add(MessageEvent, message=StickerMessage)
 def handle_message(event):
     line_bot_api.reply_message(event.reply_token,
-                               StickerSendMessage(package_id=event.message.package_id,sticker_id=event.message.sticker_id))
+                            StickerSendMessage(package_id=event.message.package_id,sticker_id=event.message.sticker_id))
 
 
 if __name__ == "__main__":
