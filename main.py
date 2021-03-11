@@ -1,7 +1,7 @@
 from flask import Flask, request, abort
 import os
 import random
-from fat import main
+# from fat import main
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -87,10 +87,12 @@ def handle_message(event):
 
     else:
         # 韻を踏んだもの(reply_text)を受け取って送る
-        reply_text = main(event.message.text)
+        # reply_text = main(event.message.text)
+        reply_text = "ん"
         messages = TextSendMessage(reply_text, quick_reply=QuickReply(items=items))
         line_bot_api.reply_message(event.reply_token, messages=messages)
 
+# 数字やローマ字、不可能な変換の時の処理
 
 # スタンプメッセージを受け取ったとき
 @handler.add(MessageEvent, message=StickerMessage)
