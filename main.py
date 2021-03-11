@@ -81,13 +81,9 @@ def handle_message(event):
         messages = TextSendMessage("ぜんざい", quick_reply=QuickReply(items=items))
         line_bot_api.reply_message(event.reply_token, messages=messages)
 
-    elif len(event.message.text > 10):
+    elif len(event.message.text) > 10:
         line_bot_api.reply_message(event.reply_token, TextSendMessage("ちょっと単語が長すぎるなぁ…"))
 
-    # elif type(event.message) == 'sticker':
-    #     line_bot_api.reply_message(
-    #         event.reply_token,
-    #         StickerSendMessage(package_id=sticker_list[4][0], sticker_id=sticker_list[4][1]))
     else:
         # 韻を踏んだもの(reply_text)を受け取って送る
         # reply_text = fat.main(event.message.text)
