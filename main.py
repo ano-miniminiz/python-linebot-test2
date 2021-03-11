@@ -83,12 +83,12 @@ def handle_message(event):
 
     # 受け取ったメッセージが10字より大きいとき
     elif len(event.message.text) > 10:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage("ちょっと単語が長すぎるなぁ…"))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage("単語が長いよ！" + "\uDBC0\uDC9F"))
 
     else:
         # 韻を踏んだもの(reply_text)を受け取って送る
         # reply_text = main(event.message.text)
-        reply_text = "ん"
+        reply_text = "ちょっと何言ってるか分からない" + "\uDBC0\uDC86"
         messages = TextSendMessage(reply_text, quick_reply=QuickReply(items=items))
         line_bot_api.reply_message(event.reply_token, messages=messages)
 
