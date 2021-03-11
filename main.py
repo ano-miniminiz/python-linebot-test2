@@ -95,9 +95,9 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, messages=messages)
 
 
-@handler.add(MessageEvent, message=StickerSendMessage)
-def reply_message(event):
-    event.message.sti
+# @handler.add(MessageEvent, message=StickerSendMessage)
+# def reply_message(event):
+#     event.message.sti
 
 
 if __name__ == "__main__":
