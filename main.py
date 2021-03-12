@@ -88,13 +88,13 @@ def handle_message(event):
 
     # 受け取ったメッセージが10字より大きいとき
     elif len(event.message.text) > 10:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage("単語が長いよ！" + "\uDBC0\uDC9F"))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage("単語が長いよ！" + "\uDBC0\uDC8F"))
 
     elif str.isalnum(event.message.text):
         line_bot_api.reply_message(event.reply_token, TextSendMessage("Pardon?" + "\uDBC0\uDC9F"))
 
     elif not str.isalpha(event.message.text):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage("なんて？" + "\uDBC0\uDC9F"))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage("なんて？" + "\uDBC0\uDC9C"))
 
     else:
         # 韻を踏んだもの(reply_text)を受け取って送る
