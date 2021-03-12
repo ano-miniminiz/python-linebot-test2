@@ -1,6 +1,7 @@
 from flask import Flask, request, abort
 import os
 import random
+import re
 import fat
 
 from linebot import (
@@ -61,15 +62,15 @@ def handle_follow(event):
 # elifの部分は別クラスにするのもアリ
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    language_list = ["やかましいわ！", "知らんがな", "欧米かっ！", "ちょっと何言ってるかわからない",
+    tsukkomi_list = ["やかましいわ！", "知らんがな", "欧米かっ！", "ちょっと何言ってるかわからない",
                      "太るって！", "病院行きな", "食べすぎだよ"]
     items = [QuickReplyButton(action=MessageAction(label=f"{language}", text=f"{language}"))
-             for language in language_list]
+             for language in tsukkomi_list]
     sticker_list = [['11537', 52002750], ['11537', 52002751], ['11537', 52002763],
                     ['11538', 51626501], ['11538', 51626506], ['11538', 51626515]]
 
     # クイックリプライメッセージを受け取ったとき
-    if event.message.text in language_list:
+    if event.message.text in tsukkomi_list:
         r = random.randint(0, 5)
         # スタンプを返す
         line_bot_api.reply_message(
@@ -90,10 +91,13 @@ def handle_message(event):
     elif len(event.message.text) > 10:
         line_bot_api.reply_message(event.reply_token, TextSendMessage("単語が長いよ！" + "\uDBC0\uDC8F"))
 
-    elif str.isalnum(event.message.text):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage("Pardon?" + "\uDBC0\uDC9F"))
+    # elif str.isalnum(event.message.text):
+    #     line_bot_api.reply_message(event.reply_token, TextSendMessage("Pardon?" + "\uDBC0\uDC9F"))
+    #
+    # elif not str.isalpha(event.message.text):
+    #     line_bot_api.reply_message(event.reply_token, TextSendMessage("なんて？" + "\uDBC0\uDC9C"))
 
-    elif not str.isalpha(event.message.text):
+    elif re.compile(r'^[a-zA-Z0-9_!"#$%&-+:/\\ \']+$').match(event.message.text) is not None:
         line_bot_api.reply_message(event.reply_token, TextSendMessage("なんて？" + "\uDBC0\uDC9C"))
 
     else:
