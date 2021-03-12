@@ -87,7 +87,7 @@ def handle_message(event):
 
     # 「コマンド」を受け取ったとき
     elif event.message.text == "コマンド":
-        messages = TextSendMessage("", quick_reply=QuickReply(items=items))
+        messages = TextSendMessage("ルマンド", quick_reply=QuickReply(items=items))
         line_bot_api.reply_message(event.reply_token, messages=messages)
 
     # 受け取ったメッセージが10字より大きいとき
