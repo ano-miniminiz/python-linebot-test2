@@ -2,7 +2,6 @@ from flask import Flask, request, abort
 import os
 import random
 import fat
-import createRichmenu as cr
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -94,18 +93,24 @@ def handle_message(event):
     elif len(event.message.text) > 10:
         line_bot_api.reply_message(event.reply_token, TextSendMessage("単語が長いよ！" + "\uDBC0\uDC9F"))
 
+    elif str.isalnum(event.message.text):
+        line_bot_api.reply_message(event.reply_token, TextSendMessage("Pardon?" + "\uDBC0\uDC9F"))
+
+    elif not str.isalpha(event.message.text):
+        line_bot_api.reply_message(event.reply_token, TextSendMessage("なんて？" + "\uDBC0\uDC9F"))
+
+    # else:
+        # # 韻を踏んだもの(reply_text)を受け取って送る
+        # # reply_text = main(event.message.text)
+        # reply_text = "ちょっと何言ってるか分からない" + "\uDBC0\uDC86"
+        # messages = TextSendMessage(reply_text, quick_reply=QuickReply(items=items))
+        # line_bot_api.reply_message(event.reply_token, messages=messages)
     else:
         # 韻を踏んだもの(reply_text)を受け取って送る
-        # reply_text = main(event.message.text)
-        reply_text = "ちょっと何言ってるか分からない" + "\uDBC0\uDC86"
+        word = event.message.text
+        reply_text = fat.message_generate(word)
         messages = TextSendMessage(reply_text, quick_reply=QuickReply(items=items))
         line_bot_api.reply_message(event.reply_token, messages=messages)
-    # else:
-    #     # 韻を踏んだもの(reply_text)を受け取って送る
-    #     word = event.message.text
-    #     reply_text = fat.message_generate(word)
-    #     messages = TextSendMessage(reply_text, quick_reply=QuickReply(items=items))
-    #     line_bot_api.reply_message(event.reply_token, messages=messages)
 
 
 # スタンプメッセージを受け取ったとき
