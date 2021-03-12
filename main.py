@@ -92,7 +92,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage("単語が長いよ！" + "\uDBC0\uDC8F"))
 
     elif re.compile(r'^[0-9]+$').match(event.message.text) is not None:
-        if re.compile(r'^[3]+$').match(event.message.text) is not None or int(event.message.text) %3 == 0:
+        if re.compile(r'^[0-9]+3$').match(event.message.text) is not None or int(event.message.text) %3 == 0:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(event.message.text + "\uDBC0\uDC9D"))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(event.message.text))
