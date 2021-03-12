@@ -49,7 +49,7 @@ def callback():
     return 'OK'
 
 
-cr.createRichmenu()
+# cr.createRichmenu()
 
 
 @handler.add(FollowEvent)
