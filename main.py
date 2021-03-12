@@ -83,15 +83,18 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, messages=messages)
 
     # 「コマンド」を受け取ったとき
-    elif event.message.text == "コマンド":
-        messages = TextSendMessage("ルマンド", quick_reply=QuickReply(items=items))
-        line_bot_api.reply_message(event.reply_token, messages=messages)
+    # elif event.message.text == "コマンド":
+    #     messages = TextSendMessage("ルマンド", quick_reply=QuickReply(items=items))
+    #     line_bot_api.reply_message(event.reply_token, messages=messages)
 
     # 受け取ったメッセージが10字より大きいとき
     elif len(event.message.text) > 10:
         line_bot_api.reply_message(event.reply_token, TextSendMessage("単語が長いよ！" + "\uDBC0\uDC8F"))
 
-    elif re.compile(r'^[a-zA-Z0-9_!"#$%&-+:/\\ \']+$').match(event.message.text) is not None:
+    elif re.compile(r'^[3]+$').match(event.message.text) is not None or int(event.message.text) %3 == 0:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(event.message.text + "\uDBC0\uDC9D"))
+
+    elif re.compile(r'^[0-9a-zA-Z_!"#$%&-+:/\\ \']+$').match(event.message.text) is not None:
         line_bot_api.reply_message(event.reply_token, TextSendMessage("Pardon?" + "\uDBC0\uDC9F"))
 
     else:
