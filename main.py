@@ -12,7 +12,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
     QuickReplyButton, MessageAction, QuickReply,
-    StickerMessage, StickerSendMessage, FollowEvent, ImageMessage, ImageSendMessage
+    StickerMessage, StickerSendMessage, FollowEvent, ImageMessage
 )
 
 app = Flask(__name__)
@@ -85,6 +85,7 @@ def handle_message(event):
     elif len(event.message.text) > 10:
         line_bot_api.reply_message(event.reply_token, TextSendMessage("単語が長いよ！" + "\uDBC0\uDC9F"))
 
+    # 数字やローマ字を受け取ったときの処理
     else:
         # 韻を踏んだもの(reply_text)を受け取って送る
         # reply_text = main(event.message.text)
@@ -92,20 +93,21 @@ def handle_message(event):
         messages = TextSendMessage(reply_text, quick_reply=QuickReply(items=items))
         line_bot_api.reply_message(event.reply_token, messages=messages)
 
-# 数字やローマ字、不可能な変換の時の処理
+# 普通に返す
+
 
 # スタンプメッセージを受け取ったとき
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_message(event):
     line_bot_api.reply_message(event.reply_token,
-                               StickerSendMessage(package_id=11539, sticker_id=52114129))
+                               StickerSendMessage(package_id='11539', sticker_id=52114129))
 
 
 # 画像メッセージを受け取ったとき
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_message(event):
     line_bot_api.reply_message(event.reply_token,
-                               StickerSendMessage(package_id=11538, sticker_id=51626506))
+                               StickerSendMessage(package_id='11538', sticker_id=51626506))
 
 
 if __name__ == "__main__":
