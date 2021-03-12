@@ -139,7 +139,7 @@
 #
 #
 # def convert_to_romaji(text):
-# 
+#
 #     kakasi = pykakasi.kakasi()
 #     kakasi.setMode("H", "a")        # Hiragana to ascii
 #     kakasi.setMode("K", "a")        # Katakana to ascii
