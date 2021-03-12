@@ -76,7 +76,7 @@ def main(query):
     #     score = ranking[i][1]
         # print("スコア:" + str(score))
         # print("言葉:" + dic[idx])
-    idx = ranking[i][0]
+    idx = ranking[0][0]
     return dic[idx]
 
 
