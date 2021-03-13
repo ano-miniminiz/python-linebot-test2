@@ -59,7 +59,6 @@ def handle_follow(event):
         )
 
 
-# elifの部分は別クラスにするのもアリ
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     tsukkomi_list = ["やかましいわ！", "知らんがな", "欧米かっ！", "ちょっと何言ってるかわからない",
@@ -102,15 +101,16 @@ def handle_message(event):
 
     else:
         # 韻を踏んだもの(reply_text)を受け取って送る
-        # reply_text = main(event.message.text)
-        reply_text = "ちょっと何言ってるか分からない" + "\uDBC0\uDC86"
+        reply_text = fat.message_generate(event.message.text)
         messages = TextSendMessage(reply_text, quick_reply=QuickReply(items=items))
         line_bot_api.reply_message(event.reply_token, messages=messages)
     # else:
     #     # 韻を踏んだもの(reply_text)を受け取って送る
-    #     reply_text = fat.main(event.message.text)
+    #     # reply_text = main(event.message.text)
+    #     reply_text = "ちょっと何言ってるか分からない" + "\uDBC0\uDC86"
     #     messages = TextSendMessage(reply_text, quick_reply=QuickReply(items=items))
     #     line_bot_api.reply_message(event.reply_token, messages=messages)
+
 
 
 # スタンプメッセージを受け取ったとき

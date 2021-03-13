@@ -1,2 +1,4 @@
 Flask==1.1.2
 line-bot-sdk==1.19.0
+pandas==1.2.3
+pykakasi==2.0.6
